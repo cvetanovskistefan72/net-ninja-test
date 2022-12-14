@@ -34,4 +34,27 @@ describe("Todo component", () => {
     const divElement = screen.getAllByTestId("task-container");
     expect(divElement.length).toBe(3);
   });
+
+  test("test if task is completed", () => {
+    render(
+      <BrowserRouter>
+        <Todo />
+      </BrowserRouter>
+    );
+    addTasks(["Brush teeth"]);
+    const divElement = screen.getByText("Brush teeth");
+    expect(divElement).toHaveClass("todo-item-active");
+  });
+
+  test("test if task is active", () => {
+    render(
+      <BrowserRouter>
+        <Todo />
+      </BrowserRouter>
+    );
+    addTasks(["Brush teeth"]);
+    const divElement = screen.getByText("Brush teeth");
+    fireEvent.click(divElement);
+    expect(divElement).not.toHaveClass("todo-item-active");
+  });
 });
